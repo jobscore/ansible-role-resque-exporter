@@ -1,0 +1,4 @@
+---
+resque_exporter_redis_url: redis://localhost:6379
+resque_exporter_redis_namespace: resque
+resque_exporter_port: 9447

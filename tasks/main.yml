@@ -1,0 +1,31 @@
+---
+- name: Ensure prometheus dir exists
+  become: true
+  file:
+    path: /opt/prometheus
+    recurse: true
+    state: directory
+
+- name: Ensure resque-exporter is downloaded
+  become: true
+  get_url:
+    url: https://github.com/jobscore/resque-exporter/releases/download/0.3.1/resque-exporter
+    dest: "/opt/prometheus/resque-exporter"
+    mode: 0755
+
+- name: Ensure resque-exporter service is configured
+  become: true
+  template:
+    dest: /etc/systemd/system/prometheus-resque-exporter.service
+    src: resque-exporter-service.j2
+  notify:
+    - restart resque-exporter
+
+- name: Ensure resque-exporter service is enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    enabled: true
+    name: prometheus-resque-exporter.service
+  notify:
+    - restart resque-exporter

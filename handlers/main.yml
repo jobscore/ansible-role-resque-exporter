@@ -1,0 +1,7 @@
+---
+- name: restart resque-exporter
+  become: true
+  systemd:
+    daemon_reload: true
+    name: prometheus-resque-exporter.service
+    state: restarted

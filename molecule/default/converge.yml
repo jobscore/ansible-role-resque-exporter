@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-resque-exporter
+      resque_exporter_redis_url: redis://instance:6379
+      resque_exporter_redis_namespace: resque
+      resque_exporter_port: 9447

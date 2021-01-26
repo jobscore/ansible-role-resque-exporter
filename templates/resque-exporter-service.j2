@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Resque Exporter Server
+
+[Service]
+ExecStart=/opt/prometheus/resque-exporter \
+    --redis.url {{ resque_exporter_redis_url }} \
+    --redis.namespace {{ resque_exporter_redis_namespace }} \
+    --web.listen-address :{{ resque_exporter_port }}
+KillMode=mixed
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
