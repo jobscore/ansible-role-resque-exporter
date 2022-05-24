@@ -3,6 +3,7 @@ galaxy_info:
   author: Glauber Cassiano Batista
   description: An Ansible role for installing Prometheus Resque Exporter on a Ubuntu box
   company: JobScore
+  namespace: jobscore
 
   license: MIT
 
@@ -10,6 +11,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
+        - focal
 
   min_ansible_version: 2.9
 
