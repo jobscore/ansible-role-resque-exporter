@@ -8,8 +8,7 @@ lint: |
   yamllint .
 platforms:
   - name: instance
-    image: solita/ubuntu-systemd
-    image_version: 18.04
+    image: solita/ubuntu-systemd:18.04
     privileged: true
     command: /sbin/init
 provisioner:
