@@ -7,11 +7,27 @@
     state: directory
 
 - name: Ensure resque-exporter is downloaded
-  become: true
   get_url:
-    url: https://github.com/jobscore/resque-exporter/releases/download/0.3.1/resque-exporter
-    dest: "/opt/prometheus/resque-exporter"
+    url: "https://github.com/jobscore/resque-exporter/releases/download/{{resque_exporter_version}}/resque-exporter-{{ resque_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/resque-exporter-{{ resque_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: 0644
+
+- name: Ensure resque-exporter is extracted
+  unarchive:
+    remote_src: yes
+    src: "/tmp/resque-exporter-{{ resque_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/"
+
+- name: Ensure resque-exporter is installed
+  copy:
+    remote_src: yes
+    src: /tmp/resque-exporter
+    dest: /opt/prometheus/resque-exporter
     mode: 0755
+    owner: root
+    group: root
+  notify:
+    - restart resque-exporter
 
 - name: Ensure resque-exporter service is configured
   become: true
@@ -26,6 +42,6 @@
   systemd:
     daemon_reload: true
     enabled: true
-    name: prometheus-resque-exporter.service
+    name: prometheus-resque-exporter
   notify:
     - restart resque-exporter

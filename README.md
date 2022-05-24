@@ -31,6 +31,7 @@ Including an example of how to use your role (for instance, with variables passe
           resque_exporter_redis_url: redis://redis-server:6379
           resque_exporter_redis_namespace: resque
           resque_exporter_port: 9447
+          resque_exporter_version: 0.3.1
 
 License
 -------
